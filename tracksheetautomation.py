@@ -133,7 +133,7 @@ html_content = f"""
 # 📤 SEND EMAIL
 # =========================
 EMAIL = os.getenv("EMAIL")
-EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
+EMAIL_PASSWORD = os.getenv("GMAIL_APP_PASSWORD")
 recipients = os.getenv("RECIPIENTS").split(",")
 
 msg = MIMEMultipart("alternative")
@@ -145,7 +145,7 @@ msg.attach(MIMEText(html_content, "html"))
 
 try:
     server = smtplib.SMTP_SSL("smtp.gmail.com", 465)
-    server.login(EMAIL, EMAIL_PASSWORD)
+    server.login(EMAIL, GMAIL_APP_PASSWORD)
     server.sendmail(EMAIL, recipients, msg.as_string())
     server.quit()
     print("✅ Email sent successfully!")
