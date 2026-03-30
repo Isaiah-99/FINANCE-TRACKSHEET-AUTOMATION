@@ -53,7 +53,6 @@ else:
     # Clean columns
     df["Amount"] = pd.to_numeric(df["Amount"], errors="coerce")
     df["Date"] = pd.to_datetime(df["Date"], errors="coerce")
-df = pd.DataFrame(data)
 
 # =========================
 # 🧹 CLEAN DATA
