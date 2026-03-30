@@ -48,6 +48,8 @@ else:
 
     df = pd.DataFrame(data_rows, columns=cleaned_headers)
 
+    print(df.columns)
+
     # Clean columns
     df["Amount"] = pd.to_numeric(df["Amount"], errors="coerce")
     df["Date"] = pd.to_datetime(df["Date"], errors="coerce")
