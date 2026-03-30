@@ -22,7 +22,35 @@ client = gspread.authorize(creds)
 SHEET_ID = "1Mzybgh1NZ6jOrQHCzmA4ZZNn2BuImAHV9WAD2s4Dq-8"
 sheet = client.open_by_key(SHEET_ID).worksheet("Transactions")
 
-data = sheet.get_all_records()
+all_values = sheet.get_all_values()
+
+if not all_values:
+    print("Sheet is empty")
+    df = pd.DataFrame()
+else:
+    headers = all_values[0]
+    data_rows = all_values[1:]
+
+    # Fix empty or duplicate headers
+    cleaned_headers = []
+    seen = {}
+
+    for i, h in enumerate(headers):
+        name = h.strip() if h.strip() else f"Unnamed_{i}"
+
+        if name in seen:
+            seen[name] += 1
+            name = f"{name}_{seen[name]}"
+        else:
+            seen[name] = 0
+
+        cleaned_headers.append(name)
+
+    df = pd.DataFrame(data_rows, columns=cleaned_headers)
+
+    # Clean columns
+    df["Amount"] = pd.to_numeric(df["Amount"], errors="coerce")
+    df["Date"] = pd.to_datetime(df["Date"], errors="coerce")
 df = pd.DataFrame(data)
 
 # =========================
