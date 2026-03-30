@@ -1,0 +1,6 @@
+pandas
+gspread
+google-auth
+transformers==4.36.2
+torch
+sentencepiece
