@@ -1,0 +1,32 @@
+name: Monthly Finance Report
+
+on:
+  schedule:
+    - cron: "0 8 1 * *"   # Runs monthly
+  workflow_dispatch:       # Allows manual run
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run script
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+          EMAIL_SENDER: ${{ secrets.EMAIL_SENDER }} # Pass your sender email secret
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }} # Pass your App Password secret
+          RECIPIENTS: ${{ secrets.RECIPIENTS }}
+        run: python tracksheetautomation.py
