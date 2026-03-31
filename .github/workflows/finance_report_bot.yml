@@ -26,7 +26,7 @@ jobs:
       - name: Run script
         env:
           GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
-          EMAIL_SENDER: ${{ secrets.EMAIL }} # Pass your sender email secret
-          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }} # Pass your App Password secret
+          EMAIL: ${{ secrets.EMAIL }} # Pass your sender email secret
+          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }} # Pass your App Password secret
           RECIPIENTS: ${{ secrets.RECIPIENTS }}
         run: python tracksheetautomation.py
