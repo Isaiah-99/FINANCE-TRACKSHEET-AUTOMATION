@@ -67,10 +67,16 @@ df["Date"] = pd.to_datetime(df["Date"], errors="coerce")
 
 df.head()
 
+# Ensure 'Date' column is in datetime format
 df["Date"] = pd.to_datetime(df["Date"])
 
-# Filter for January 2026 data, as per the available dataset
-current_month = df[df["Date"].dt.month == 1]
+# Filter for the current month (dynamically gets the current month)
+current_month_num = pd.Timestamp.now().month
+current_month = df[df["Date"].dt.month == current_month_num]
+
+# Display the first few rows of the filtered data to verify
+print(f"Data for the current month (Month {current_month_num}):")
+print(current_month.head())
 
 income = current_month[current_month["Category"] == "Income"]["Amount"].sum()
 expenses = current_month[current_month["Category"] == "Expenses"]["Amount"].sum()
