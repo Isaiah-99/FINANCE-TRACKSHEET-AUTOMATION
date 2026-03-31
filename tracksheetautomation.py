@@ -145,7 +145,7 @@ msg.attach(MIMEText(html_content, "html"))
 
 try:
     server = smtplib.SMTP_SSL("smtp.gmail.com", 465)
-    server.login(EMAIL, GMAIL_APP_PASSWORD)
+    server.login(EMAIL, PASSWORD)
     server.sendmail(EMAIL, recipients, msg.as_string())
     server.quit()
     print("✅ Email sent successfully!")
