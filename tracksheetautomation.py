@@ -61,20 +61,19 @@ df["Date"] = pd.to_datetime(df["Date"], errors="coerce")
 df["Amount"] = pd.to_numeric(df["Amount"], errors="coerce")
 
 # Filter current month
-latest_month = df["Date"].dt.to_period("M").max()
-current_month = df[df["Date"].dt.to_period("M") == latest_month]
+current_month = df[df["Date"].dt.month == pd.Timestamp.now().month]
 
 # =========================
 # 💰 CALCULATIONS
 # =========================
-income = current_month[current_month["Segment"] == "Income"]["Amount"].sum()
-expenses = current_month[current_month["Segment"] == "Expense"]["Amount"].sum()
+income = current_month[current_month["Category"] == "Income"]["Amount"].sum()
+expenses = current_month[current_month["Category"] == "Expense"]["Amount"].sum()
 savings = current_month[current_month["Segment"] == "Savings"]["Amount"].sum()
 
 # Top spending (by category)
 top_spending = (
-    current_month[current_month["Segment"] == "Expense"]
-    .groupby("Category")["Amount"]
+    current_month[current_month["Category"] == "Expense"]
+    .groupby("Segment")["Amount"]
     .sum()
     .sort_values(ascending=False)
 )
