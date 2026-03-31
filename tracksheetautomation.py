@@ -68,28 +68,24 @@ df["Segment"] = df["Segment"].astype(str).str.strip().str.title()
 df["Amount"] = pd.to_numeric(df["Amount"], errors="coerce")
 df["Date"] = pd.to_datetime(df["Date"], errors="coerce")
 
-print("TOTAL ROWS:", len(df))
-print("CATEGORY VALUES:", df["Category"].unique())
-print("SEGMENT VALUES:", df["Segment"].unique())
-
 # Use all data (no filter for now)
 current_month = df
 
 # =========================
 # 💰 CORRECT CALCULATIONS
 # =========================
-income = current_month[current_month["Category"] == "Income"]["Amount"].sum()
+income = df[df["Category"] == "Income"]["Amount"].sum()
 
-expenses = current_month[current_month["Category"] == "Expense"]["Amount"].sum()
+expenses = df[df["Category"] == "Expense"]["Amount"].sum()
 
 # Savings is inside Segment
-savings = current_month[current_month["Segment"] == "Savings"]["Amount"].sum()
+savings = df[df["Segment"] == "Savings"]["Amount"].sum()
 
 # =========================
 # 📊 TOP SPENDING
 # =========================
 top_spending = (
-    current_month[current_month["Category"] == "Expense"]
+   df[df["Category"] == "Expense"]
     .groupby("Segment")["Amount"]
     .sum()
     .sort_values(ascending=False)
