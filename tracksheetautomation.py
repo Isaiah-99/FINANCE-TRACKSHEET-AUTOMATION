@@ -78,12 +78,12 @@ print(f"Data for the current month (Month {current_month_num}):")
 print(current_month.head())
 
 income = current_month[current_month["Category"] == "Income"]["Amount"].sum()
-expenses = current_month[current_month["Category"] == "Expenses"]["Amount"].sum()
+expenses = current_month[current_month["Category"] == "Expense"]["Amount"].sum()
 
 savings = current_month[current_month["Segment"] == "Savings"]["Amount"].sum()
 
 top_spending = (
-    current_month[current_month["Category"] == "Expenses"] # Filter for expense transactions based on 'Category'
+    current_month[current_month["Category"] == "Expense"] # Filter for expense transactions based on 'Category'
     .groupby("Segment") # Group by 'Segment' to identify top spending areas within expenses
     ["Amount"].sum()
     .sort_values(ascending=False)
