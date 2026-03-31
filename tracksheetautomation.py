@@ -61,7 +61,8 @@ df["Date"] = pd.to_datetime(df["Date"], errors="coerce")
 df["Amount"] = pd.to_numeric(df["Amount"], errors="coerce")
 
 # Filter current month
-current_month = df[df["Date"].dt.month == pd.Timestamp.now().month]
+latest_month = df["Date"].dt.to_period("M").max()
+current_month = df[df["Date"].dt.to_period("M") == latest_month]
 
 # =========================
 # 💰 CALCULATIONS
