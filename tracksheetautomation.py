@@ -57,24 +57,18 @@ else:
 # =========================
 # 🧹 CLEAN DATA
 # =========================
-df["Date"] = pd.to_datetime(df["Date"], errors="coerce")
-df["Amount"] = pd.to_numeric(df["Amount"], errors="coerce")
-
-# Filter current month
+# Filter for January 2026 data, as per the available dataset
 current_month = df[df["Date"].dt.month == 1]
 
-# =========================
-# 💰 CALCULATIONS
-# =========================
 income = current_month[current_month["Category"] == "Income"]["Amount"].sum()
-expenses = current_month[current_month["Category"] == "Expense"]["Amount"].sum()
+expenses = current_month[current_month["Category"] == "Expenses"]["Amount"].sum()
+
 savings = current_month[current_month["Segment"] == "Savings"]["Amount"].sum()
 
-# Top spending (by category)
 top_spending = (
-    current_month[current_month["Category"] == "Expense"]
-    .groupby("Segment")["Amount"]
-    .sum()
+    current_month[current_month["Category"] == "Expenses"] # Filter for expense transactions based on 'Category'
+    .groupby("Segment") # Group by 'Segment' to identify top spending areas within expenses
+    ["Amount"].sum()
     .sort_values(ascending=False)
 )
 
