@@ -133,7 +133,7 @@ html_content = f"""
 # 📤 SEND EMAIL
 # =========================
 EMAIL = os.getenv("EMAIL")
-EMAIL_PASSWORD = os.getenv("GMAIL_APP_PASSWORD")
+EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
 recipients = os.getenv("RECIPIENTS").split(",")
 
 msg = MIMEMultipart("alternative")
