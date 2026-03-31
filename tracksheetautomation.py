@@ -57,18 +57,37 @@ else:
 # =========================
 # 🧹 CLEAN DATA
 # =========================
-# Filter for January 2026 data, as per the available dataset
-current_month = df[df["Date"].dt.month == 1]
+# =========================
+# 🧹 CLEAN DATA
+# =========================
+df.columns = df.columns.str.strip()
 
+df["Category"] = df["Category"].astype(str).str.strip().str.title()
+df["Segment"] = df["Segment"].astype(str).str.strip().str.title()
+
+df["Amount"] = pd.to_numeric(df["Amount"], errors="coerce")
+df["Date"] = pd.to_datetime(df["Date"], errors="coerce")
+
+# Use all data (no filter for now)
+current_month = df
+
+# =========================
+# 💰 CORRECT CALCULATIONS
+# =========================
 income = current_month[current_month["Category"] == "Income"]["Amount"].sum()
-expenses = current_month[current_month["Category"] == "Expenses"]["Amount"].sum()
 
+expenses = current_month[current_month["Category"] == "Expense"]["Amount"].sum()
+
+# Savings is inside Segment
 savings = current_month[current_month["Segment"] == "Savings"]["Amount"].sum()
 
+# =========================
+# 📊 TOP SPENDING
+# =========================
 top_spending = (
-    current_month[current_month["Category"] == "Expenses"] # Filter for expense transactions based on 'Category'
-    .groupby("Segment") # Group by 'Segment' to identify top spending areas within expenses
-    ["Amount"].sum()
+    current_month[current_month["Category"] == "Expense"]
+    .groupby("Segment")["Amount"]
+    .sum()
     .sort_values(ascending=False)
 )
 
