@@ -68,6 +68,10 @@ df["Segment"] = df["Segment"].astype(str).str.strip().str.title()
 df["Amount"] = pd.to_numeric(df["Amount"], errors="coerce")
 df["Date"] = pd.to_datetime(df["Date"], errors="coerce")
 
+print("TOTAL ROWS:", len(df))
+print("CATEGORY VALUES:", df["Category"].unique())
+print("SEGMENT VALUES:", df["Segment"].unique())
+
 # Use all data (no filter for now)
 current_month = df
 
