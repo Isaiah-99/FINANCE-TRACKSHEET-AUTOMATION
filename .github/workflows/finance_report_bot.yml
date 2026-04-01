@@ -2,7 +2,7 @@ name: Monthly Finance Report
 
 on:
   schedule:
-    - cron: "0 8 1 * *"   # Runs monthly
+    - cron: "0 18 28-31 * *"   # Runs 28th–31st every month at 6PM UTC
   workflow_dispatch:       # Allows manual run
 
 jobs:
