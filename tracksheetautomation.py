@@ -71,10 +71,12 @@ df["Date"] = pd.to_datetime(df["Date"])
 
 # Filter for the current month (dynamically gets the current month)
 current_month_num = pd.Timestamp.now().month
+current_year = pd.Timestamp.now().year
+current_month_name = pd.Timestamp.now().strftime('%B') # Get full month name
 current_month = df[df["Date"].dt.month == current_month_num]
 
 # Display the first few rows of the filtered data to verify
-print(f"Data for the current month (Month {current_month_num}):")
+print(f"Data for {current_month_name} {current_year}:")
 print(current_month.head())
 
 income = current_month[current_month["Category"] == "Income"]["Amount"].sum()
