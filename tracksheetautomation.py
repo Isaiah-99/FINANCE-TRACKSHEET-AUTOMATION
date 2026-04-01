@@ -128,6 +128,7 @@ html_content = f"""
 <div style="font-family:Arial; padding:20px;">
     <h2>📊 Monthly Finance Report</h2>
 
+    <p><b>Month:</b> {current_month_name}</p>
     <p><b>Income:</b> ₦{income:,.0f}</p>
     <p><b>Expenses:</b> ₦{expenses:,.0f}</p>
     <p><b>Savings:</b> ₦{savings:,.0f}</p>
