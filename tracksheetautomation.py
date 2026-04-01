@@ -7,6 +7,20 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
+from datetime import datetime, timedelta
+
+# =========================
+# 📅 RUN ONLY LAST DAY
+# =========================
+today = datetime.utcnow()
+tomorrow = today + timedelta(days=1)
+
+if tomorrow.month != today.month:
+    print("✅ Today is last day of month → Running script")
+else:
+    print("⏭️ Not last day of month → Skipping")
+    exit()
+
 # =========================
 # 🔐 LOAD GOOGLE CREDENTIALS
 # =========================
